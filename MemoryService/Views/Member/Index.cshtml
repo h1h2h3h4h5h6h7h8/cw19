@@ -1,0 +1,58 @@
+﻿@model IEnumerable<App.Domain.Core.Memory.Entities.Member>
+
+@{
+    ViewData["Title"] = "لیست اعضا";
+}
+
+<h2>لیست اعضا</h2>
+
+<form method="get" asp-action="Search" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="searchQuery" class="form-control" placeholder="جستجو بر اساس نام یا کد ملی" />
+        <button class="btn btn-primary" type="submit">جستجو</button>
+    </div>
+</form>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>نام</th>
+            <th>کد ملی</th>
+            <th>تاریخ ثبت</th>
+            <th>نوع عضویت</th>
+            <th>عملیات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var member in Model)
+        {
+            <tr>
+                <td>@member.FirstName @member.LastName</td>
+                <td>@member.NationalCode</td>
+                <td>@member.RegisterDateString</td>
+                <td>@member.MembershipType</td>
+                <td>
+                    <a href="@Url.Action("Details", "Member", new { id = member.Id })" class="btn btn-info">جزئیات</a>
+                    <a href="@Url.Action("Edit", "Member", new { id = member.Id })" class="btn btn-warning">ویرایش</a>
+                    <a href="@Url.Action("Delete", "Member", new { id = member.Id })" class="btn btn-danger">حذف</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Create", "Member")" class="btn btn-primary">افزودن عضو جدید</a>

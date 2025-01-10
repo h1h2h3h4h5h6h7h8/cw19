@@ -1,0 +1,72 @@
+﻿@model IEnumerable<App.Domain.Core.Memory.Entities.Member>
+
+@{
+    ViewData["Title"] = "Search Members";
+}
+
+<h1>جستجوی اعضا</h1>
+
+<form method="get" asp-action="Search">
+    <div class="form-group">
+        <label for="searchQuery">نام یا نام خانوادگی:</label>
+        <input type="text" class="form-control" id="searchQuery" name="searchQuery" />
+    </div>
+
+    <div class="form-group">
+        <label for="gender">جنسیت:</label>
+        <select class="form-control" id="gender" name="gender">
+            <option value="">همه</option>
+            <option value="Male">مرد</option>
+            <option value="Female">زن</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="membershipType">نوع عضویت:</label>
+        <select class="form-control" id="membershipType" name="membershipType">
+            <option value="">همه</option>
+            <option value="Basic">مبتدی</option>
+            <option value="Premium">پریمیوم</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="score">امتیاز:</label>
+        <input type="number" class="form-control" id="score" name="score" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">جستجو</button>
+</form>
+
+<hr />
+<h3>نتایج جستجو</h3>
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>نام</th>
+                <th>نام خانوادگی</th>
+                <th>جنسیت</th>
+                <th>نوع عضویت</th>
+                <th>امتیاز</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var member in Model)
+            {
+                <tr>
+                    <td>@member.FirstName</td>
+                    <td>@member.LastName</td>
+                    <td>@member.Gender</td>
+                    <td>@member.MembershipType</td>
+                    <td>@member.Score</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>هیچ عضوی پیدا نشد.</p>
+}

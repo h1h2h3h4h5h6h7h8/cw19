@@ -1,0 +1,41 @@
+﻿@model App.Domain.Core.Memory.Entities.Member
+
+@{
+    ViewData["Title"] = "جزئیات عضو";
+}
+
+<h1>جزئیات عضو</h1>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<table class="table">
+    <tr>
+        <th>نام</th>
+        <td>@Model.FirstName</td>
+    </tr>
+    <tr>
+        <th>نام خانوادگی</th>
+        <td>@Model.LastName</td>
+    </tr>
+    <tr>
+        <th>کد ملی</th>
+        <td>@Model.NationalCode</td>
+    </tr>
+    <tr>
+        <th>تاریخ تولد</th>
+        <td>@Model.BirthDateString</td>
+    </tr>
+    <tr>
+        <th>تاریخ ثبت‌نام</th>
+        <td>@Model.RegisterDateString</td>
+    </tr>
+</table>
+
+<a href="@Url.Action("Edit", "Member", new { id = Model.Id })">ویرایش</a> |
+<a href="@Url.Action("Delete", "Member", new { id = Model.Id })" onclick="return confirm('آیا مطمئن هستید؟')">حذف</a> |
+<a href="@Url.Action("Index", "Member")">بازگشت به لیست</a>
